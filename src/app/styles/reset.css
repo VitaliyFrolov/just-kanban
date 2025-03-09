@@ -1,0 +1,15 @@
+* {
+  scrollbar-width: thin;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea::-webkit-resizer {
+  display: none;
+}

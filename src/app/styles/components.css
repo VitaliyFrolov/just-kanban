@@ -1,0 +1,8 @@
+@layer components {
+  .content-container {
+    --padding: 30px;
+    padding: 0 var(--padding);
+    max-width: calc(800px + var(--padding) * 2);
+    margin: 0 auto;
+  }
+}
