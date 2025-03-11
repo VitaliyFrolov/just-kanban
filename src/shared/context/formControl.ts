@@ -2,14 +2,14 @@
 
 import { createContext } from 'react';
 
-interface FormControlContext {
+interface FormControlContextState {
   name?: string;
   required?: boolean;
   error?: boolean;
   disabled?: boolean;
 }
 
-export const formControlContext = createContext<FormControlContext>({
+export const FormControlContext = createContext<FormControlContextState>({
   required: false,
   error: false,
   disabled: false,

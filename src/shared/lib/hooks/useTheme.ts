@@ -1,5 +1,5 @@
-import { useContext } from 'react';
+import { use } from 'react';
 
-import { themeContext } from 'shared/context';
+import { ThemeContext } from 'shared/context';
 
-export const useTheme = () => useContext(themeContext);
+export const useTheme = () => use(ThemeContext);

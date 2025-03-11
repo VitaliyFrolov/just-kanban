@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode, forwardRef } from 'react';
+import { FC, InputHTMLAttributes, ReactNode, Ref } from 'react';
 
 import { tv } from 'shared/lib';
 
@@ -23,43 +23,40 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
   beforeInput?: ReactNode;
   afterInput?: ReactNode;
+  ref?: Ref<HTMLInputElement>;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      className,
-      icon,
-      error,
-      afterInput,
-      beforeInput,
-      autoComplete = 'off',
-      ...props
-    },
-    ref,
-  ) => {
-    const { root, nativeInput } = inputVariants({ error });
+export const Input: FC<InputProps> = ({
+  className,
+  icon,
+  error,
+  afterInput,
+  beforeInput,
+  autoComplete = 'off',
+  ref,
+  ...props
+}) => {
+  const { root, nativeInput } = inputVariants({ error });
 
-    return (
-      <div className={root({ className })}>
-        {beforeInput}
-        <div className="w-[43px] flex shrink-0 justify-end self-center h-full relative empty:hidden">
-          {icon && (
-            <span className="w-[25px] height-[25px] flex items-center justify-center">
-              {icon}
-            </span>
-          )}
-        </div>
-        <input
-          {...props}
-          ref={ref}
-          autoComplete={autoComplete}
-          className={nativeInput()}
-        />
-        {afterInput}
+  return (
+    <div className={root({ className })}>
+      {beforeInput}
+      <div className="w-[43px] flex shrink-0 justify-end self-center h-full relative empty:hidden">
+        {icon && (
+          <span className="w-[25px] height-[25px] flex items-center justify-center">
+            {icon}
+          </span>
+        )}
       </div>
-    );
-  },
-);
+      <input
+        {...props}
+        ref={ref}
+        autoComplete={autoComplete}
+        className={nativeInput()}
+      />
+      {afterInput}
+    </div>
+  );
+};
 
 Input.displayName = 'Input';

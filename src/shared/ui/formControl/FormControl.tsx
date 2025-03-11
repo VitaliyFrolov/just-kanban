@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 
-import { formControlContext } from 'shared/context';
+import { FormControlContext } from 'shared/context';
 
 type FormControlProps = PropsWithChildren<{
   name?: string;
@@ -17,7 +17,7 @@ export const FormControl: FC<FormControlProps> = ({
   disabled,
 }) => {
   return (
-    <formControlContext.Provider
+    <FormControlContext
       value={{
         name,
         required,
@@ -26,6 +26,6 @@ export const FormControl: FC<FormControlProps> = ({
       }}
     >
       {children}
-    </formControlContext.Provider>
+    </FormControlContext>
   );
 };

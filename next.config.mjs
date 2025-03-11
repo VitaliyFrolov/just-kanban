@@ -13,6 +13,9 @@ const nextConfig = {
     return config;
   },
   output: 'standalone',
+  experimental: {
+    reactCompiler: true,
+  },
   images: {
     remotePatterns: [
       {

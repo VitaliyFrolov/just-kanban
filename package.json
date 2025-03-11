@@ -29,7 +29,7 @@
     "@eslint/js": "^9.22.0",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4.0.12",
-    "@tailwindcss/vite": "^4.0.12",
+    "babel-plugin-react-compiler": "^19.0.0-beta-bafa41b-20250307",
     "@types/node": "^20",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",

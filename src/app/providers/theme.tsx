@@ -9,7 +9,7 @@ import {
   isValidTheme,
 } from 'shared/config';
 import { getClientCookie, setClientCookie } from 'shared/lib';
-import { themeContext } from 'shared/context';
+import { ThemeContext } from 'shared/context';
 
 export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
@@ -33,9 +33,5 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
     setTheme: handleThemeChange,
   };
 
-  return (
-    <themeContext.Provider value={contextValue}>
-      {children}
-    </themeContext.Provider>
-  );
+  return <ThemeContext value={contextValue}>{children}</ThemeContext>;
 };

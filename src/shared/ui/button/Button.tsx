@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react';
+import { ButtonHTMLAttributes, FC, ReactNode, Ref } from 'react';
 
 import { VariantProps, tv } from 'shared/lib';
 
@@ -38,49 +38,46 @@ interface ButtonProps
     VariantProps<typeof buttonVariants> {
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
+  ref?: Ref<HTMLButtonElement>;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      size,
-      variant,
-      leftIcon,
-      rightIcon,
-      textColor,
-      type = 'button',
-      ...props
-    },
-    ref,
-  ) => {
-    return (
-      <button
-        {...props}
-        ref={ref}
-        className={buttonVariants({
-          className,
-          variant,
-          size,
-          textColor,
-          icons: !!leftIcon || !!rightIcon,
-        })}
-        type={type}
-      >
-        {leftIcon && (
-          <span className="flex w-[25px] h-[25px] items-center justify-center">
-            {leftIcon}
-          </span>
-        )}
-        {props.children}
-        {rightIcon && (
-          <span className="flex w-[25px] h-[25px] items-center justify-center">
-            {rightIcon}
-          </span>
-        )}
-      </button>
-    );
-  },
-);
+export const Button: FC<ButtonProps> = ({
+  className,
+  size,
+  variant,
+  leftIcon,
+  rightIcon,
+  ref,
+  textColor,
+  type = 'button',
+  ...props
+}) => {
+  return (
+    <button
+      {...props}
+      ref={ref}
+      className={buttonVariants({
+        className,
+        variant,
+        size,
+        textColor,
+        icons: !!leftIcon || !!rightIcon,
+      })}
+      type={type}
+    >
+      {leftIcon && (
+        <span className="flex w-[25px] h-[25px] items-center justify-center">
+          {leftIcon}
+        </span>
+      )}
+      {props.children}
+      {rightIcon && (
+        <span className="flex w-[25px] h-[25px] items-center justify-center">
+          {rightIcon}
+        </span>
+      )}
+    </button>
+  );
+};
 
 Button.displayName = 'Button';
