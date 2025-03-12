@@ -11,7 +11,7 @@ export const buttonVariants = tv({
       accent: 'bg-accent',
     },
     textColor: {
-      primary: 'text-primary',
+      secondary: 'text-secondary',
     },
     size: {
       md: 'py-[7px] px-[33px]',
@@ -27,7 +27,7 @@ export const buttonVariants = tv({
     { variant: 'accent', class: 'text-bg-accent-contrast' },
   ],
   defaultVariants: {
-    textColor: 'primary',
+    textColor: 'secondary',
     variant: 'outlined',
     size: 'md',
   },

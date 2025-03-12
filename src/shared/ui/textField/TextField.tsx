@@ -1,19 +1,12 @@
 import { FC, Ref, useId } from 'react';
 
-import {
-  FormControl,
-  InformationText,
-  Input,
-  InputProps,
-  TextArea,
-} from 'shared/ui';
+import { FormControl, InformationText, Input, InputProps } from 'shared/ui';
+import { clsx } from 'shared/lib';
 
 export interface TextFieldProps extends InputProps {
   label?: string;
   helperText?: string;
   multiline?: boolean;
-  minRows?: number;
-  maxRows?: number;
   ref?: Ref<HTMLInputElement>;
 }
 
@@ -22,9 +15,7 @@ export const TextField: FC<TextFieldProps> = ({
   helperText,
   label,
   multiline,
-  minRows,
   ref,
-  maxRows,
   id: idProp,
   ...otherProps
 }) => {
@@ -43,12 +34,11 @@ export const TextField: FC<TextFieldProps> = ({
           </label>
         )}
         {multiline ? (
-          <TextArea
+          <input
             {...otherProps}
+            className={clsx(className, 'field-sizing-content')}
             ref={ref}
             id={id}
-            minRows={minRows}
-            maxRows={maxRows}
           />
         ) : (
           <Input

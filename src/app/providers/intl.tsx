@@ -1,14 +1,8 @@
-import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
 import { FC, PropsWithChildren } from 'react';
+import { NextIntlClientProvider } from 'next-intl';
 
-type IntlProviderProps = PropsWithChildren<{
-  messages?: AbstractIntlMessages;
-}>;
-
-export const IntlProvider: FC<IntlProviderProps> = (props) => {
+export const IntlProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <NextIntlClientProvider messages={props.messages}>
-      {props.children}
-    </NextIntlClientProvider>
+    <NextIntlClientProvider messages={null}>{children}</NextIntlClientProvider>
   );
 };

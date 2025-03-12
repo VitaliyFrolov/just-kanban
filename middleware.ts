@@ -16,6 +16,6 @@ export const middleware = (req: NextRequest) => {
 export const config: MiddlewareConfig = {
   // todo: make regex more flexible
   matcher: [
-    '/((?!api|_next/static|manifest|sw|workbox|robots|assets|favicon).*)',
+    '/((?!api|_next/static|manifest|sw|workbox|robots|messages|assets|favicon).*)',
   ],
 };

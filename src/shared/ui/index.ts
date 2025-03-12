@@ -6,7 +6,6 @@ export { Image } from './image';
 export { Input, inputVariants, type InputProps } from './input';
 export { Link } from './link';
 export { Modal, MODAL_CONTAINER_ID } from './modal';
-export { TextArea } from './textArea';
 export { TextField, type TextFieldProps } from './textField';
 export {
   VirtualList,

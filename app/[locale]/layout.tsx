@@ -1,16 +1,14 @@
 import { FC, PropsWithChildren } from 'react';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import { getMessages } from 'next-intl/server';
 
 import 'app/styles/index.css';
 import { IntlProvider, ThemeProvider } from 'app/providers';
 import { THEME_ATTRIBUTE_NAME, THEME_COOKIE_NAME, Theme } from 'shared/config';
+import { RoutingDefaultParams } from 'shared/types';
 
 type RootLayoutProps = PropsWithChildren<{
-  params: {
-    locale: string;
-  };
+  params: Promise<RoutingDefaultParams>;
 }>;
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -21,21 +19,20 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 const Providers: FC<PropsWithChildren> = async (props) => {
-  const [messages] = await Promise.all([getMessages()]);
-
   return (
-    <IntlProvider messages={messages}>
+    <IntlProvider>
       <ThemeProvider>{props.children}</ThemeProvider>
     </IntlProvider>
   );
 };
 
 const RootLayout: FC<RootLayoutProps> = async ({ params, children }) => {
+  const { locale } = await params;
   const cookie = await cookies();
   const theme = cookie.get(THEME_COOKIE_NAME)?.value ?? Theme.default;
 
   const htmlAttributes = {
-    lang: params.locale,
+    lang: locale,
     [THEME_ATTRIBUTE_NAME]: theme,
   };
 
