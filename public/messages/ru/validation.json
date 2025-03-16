@@ -1,0 +1,9 @@
+{
+  "validation-email": "Email не валиден",
+  "validation-required": "Поле обязательно для заполнения",
+  "validation-username": "Имя пользователя может содержать только латинские буквы, цифры и один из символов @_-",
+  "validation-username-length": "Имя пользозователя должно иметь длину от 4 до 30 символов",
+  "validation-password-length": "Длинна пароля должна быть от 6 до 75 символов",
+  "validation-password-symbols": "Пароль может содержать только латинские буквы, цифры и один из символов @_-",
+  "validation-match-passwords": "Пароли должны совпадать"
+}

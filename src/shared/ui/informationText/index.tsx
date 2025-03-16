@@ -1,1 +1,0 @@
-export { InformationText } from './InformationText';

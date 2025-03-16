@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import { LoginForm } from 'widgets/login-form';
+import { RegistrationForm } from 'widgets/registration-form';
 import { getMessages } from 'shared/lib';
 
-export const LoginPage: FC = async () => {
+export const RegistrationPage: FC = async () => {
   const messages = await getMessages();
 
   return (
-    <LoginForm
+    <RegistrationForm
       messages={{ auth: messages.auth, validation: messages.validation }}
     />
   );

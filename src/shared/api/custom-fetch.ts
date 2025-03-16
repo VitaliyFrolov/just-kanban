@@ -1,7 +1,7 @@
 import { ACCESS_TOKEN_HEADER_NAME, API_URL } from 'shared/config';
 import { cleanObject } from 'shared/lib';
 
-import { readAuthToken } from './readAuthToken';
+import { readAuthToken } from './read-auth-token';
 
 export interface ListFetchResponse<T> {
   count: number;
@@ -44,6 +44,8 @@ export const customFetch = {
     const searchParams = new URLSearchParams(
       cleanedQuery as Record<string, string>,
     ).toString();
+
+    console.log(API_URL, url);
 
     const res = await fetch(
       `${options?.customOrigin ? '' : API_URL}${url}${

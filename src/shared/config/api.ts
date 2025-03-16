@@ -1,2 +1,7 @@
-export const SERVER_URL = process.env.SERVER_URL || 'http://localhost:3000';
-export const API_URL = `${SERVER_URL}/api`;
+export const API_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
+export const enum ApiPath {
+  Registration = '/registration',
+  Login = '/login',
+  RefreshToken = '/refresh-token',
+}

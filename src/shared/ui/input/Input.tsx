@@ -4,15 +4,18 @@ import { tv } from 'shared/lib';
 
 export const inputVariants = tv({
   slots: {
-    root: 'flex bg-primary border-1 border-primary focus-within:border-accent rounded-md overflow-hidden',
+    root: `
+      flex border-1 border-contour rounded-md overflow-hidden
+      duration-[var(--duration-interactive)] focus-within:border-accented
+    `,
     nativeInput:
       'px-[15px] py-[12px] flex-auto bg-transparent focus-visible:outline-none placeholder:text-placeholder min-w-[100px]',
   },
   variants: {
     error: {
       true: {
-        root: 'border-danger text-danger',
-        nativeInput: 'placeholder:text-danger',
+        root: 'border-danger-500 text-danger-500',
+        nativeInput: 'placeholder:text-danger-500',
       },
     },
   },
@@ -58,5 +61,3 @@ export const Input: FC<InputProps> = ({
     </div>
   );
 };
-
-Input.displayName = 'Input';

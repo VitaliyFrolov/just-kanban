@@ -11,4 +11,4 @@ export {
   THEME_COOKIE_NAME,
   isValidTheme,
 } from './theme';
-export { API_URL, SERVER_URL } from './api';
+export { API_URL, ApiPath } from './api';

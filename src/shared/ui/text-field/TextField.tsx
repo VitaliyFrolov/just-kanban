@@ -1,18 +1,20 @@
 import { FC, Ref, useId } from 'react';
 
-import { FormControl, InformationText, Input, InputProps } from 'shared/ui';
+import { FormControl, InformationMessage, Input, InputProps } from 'shared/ui';
 import { clsx } from 'shared/lib';
 
 export interface TextFieldProps extends InputProps {
   label?: string;
-  helperText?: string;
+  errorMessage?: string;
+  infoMessage?: string;
   multiline?: boolean;
   ref?: Ref<HTMLInputElement>;
 }
 
 export const TextField: FC<TextFieldProps> = ({
   className,
-  helperText,
+  errorMessage,
+  infoMessage,
   label,
   multiline,
   ref,
@@ -33,31 +35,32 @@ export const TextField: FC<TextFieldProps> = ({
             {label}
           </label>
         )}
-        {multiline ? (
-          <input
-            {...otherProps}
-            className={clsx(className, 'field-sizing-content')}
-            ref={ref}
-            id={id}
-          />
-        ) : (
-          <Input
-            {...otherProps}
-            ref={ref}
-            id={id}
-          />
-        )}
-        {helperText && (
-          <InformationText
+        <Input
+          {...otherProps}
+          className={clsx(className, {
+            ['field-sizing-content']: multiline,
+          })}
+          error={!!errorMessage}
+          ref={ref}
+          id={id}
+        />
+        {errorMessage && (
+          <InformationMessage
             className="mt-1"
-            error={otherProps.error}
+            error
           >
-            {helperText}
-          </InformationText>
+            {errorMessage}
+          </InformationMessage>
+        )}
+        {infoMessage && (
+          <InformationMessage
+            className="mt-1"
+            info
+          >
+            {infoMessage}
+          </InformationMessage>
         )}
       </FormControl>
     </div>
   );
 };
-
-TextField.displayName = 'TextField';

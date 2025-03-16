@@ -1,19 +1,19 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
 
-import { LoginPage } from 'pages/login';
+import { RegistrationPage } from 'pages/registration';
 import { getMessages } from 'shared/lib';
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const t = await getMessages('auth');
+  const messages = await getMessages();
 
   return {
-    title: t('page-title'),
+    title: messages.auth.registration,
   };
 };
 
 const RoutingPage: FC = () => {
-  return <LoginPage />;
+  return <RegistrationPage />;
 };
 
 export default RoutingPage;

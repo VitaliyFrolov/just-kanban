@@ -1,0 +1,1 @@
+export { InformationMessage } from './InformationMessage';

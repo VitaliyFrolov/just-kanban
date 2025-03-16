@@ -1,33 +1,30 @@
 import { ButtonHTMLAttributes, FC, ReactNode, Ref } from 'react';
 
 import { VariantProps, tv } from 'shared/lib';
+import { Loader } from 'shared/ui';
 
 export const buttonVariants = tv({
-  base: 'inline-block rounded-md focus-visible:opacity-70 hover:opacity-70 disabled:opacity-60 disabled:cursor-not-allowed',
+  base: `
+    border-1 inline-flex rounded-md disabled:opacity-60
+    justify-center duration-[var(--duration-interactive)]
+  `,
   variants: {
     variant: {
-      clear: 'bg-transparent',
+      clear: 'bg-transparent p-0 text-inherit',
       outlined: 'border-1 border-primary bg-primary',
-      accent: 'bg-accent',
-    },
-    textColor: {
-      secondary: 'text-secondary',
+      primaryFilled:
+        'bg-primary-900 text-white font-bold hover:bg-primary-950 focus-visible:bg-primary-950',
     },
     size: {
-      md: 'py-[7px] px-[33px]',
-      xl: 'py-[13px] px-[33px]',
+      md: 'py-m px-xl',
+      xl: 'py-l px-xxl',
     },
     icons: {
       true: 'px-[22px] flex items-center justify-center gap-[10px]',
       false: '',
     },
   },
-  compoundVariants: [
-    { variant: 'clear', class: 'p-0 text-inherit' },
-    { variant: 'accent', class: 'text-bg-accent-contrast' },
-  ],
   defaultVariants: {
-    textColor: 'secondary',
     variant: 'outlined',
     size: 'md',
   },
@@ -39,6 +36,7 @@ interface ButtonProps
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   ref?: Ref<HTMLButtonElement>;
+  loading?: boolean;
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -48,7 +46,7 @@ export const Button: FC<ButtonProps> = ({
   leftIcon,
   rightIcon,
   ref,
-  textColor,
+  loading,
   type = 'button',
   ...props
 }) => {
@@ -60,24 +58,27 @@ export const Button: FC<ButtonProps> = ({
         className,
         variant,
         size,
-        textColor,
         icons: !!leftIcon || !!rightIcon,
       })}
       type={type}
     >
-      {leftIcon && (
-        <span className="flex w-[25px] h-[25px] items-center justify-center">
-          {leftIcon}
-        </span>
-      )}
-      {props.children}
-      {rightIcon && (
-        <span className="flex w-[25px] h-[25px] items-center justify-center">
-          {rightIcon}
-        </span>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          {leftIcon && (
+            <span className="flex w-[25px] h-[25px] items-center justify-center">
+              {leftIcon}
+            </span>
+          )}
+          {props.children}
+          {rightIcon && (
+            <span className="flex w-[25px] h-[25px] items-center justify-center">
+              {rightIcon}
+            </span>
+          )}
+        </>
       )}
     </button>
   );
 };
-
-Button.displayName = 'Button';

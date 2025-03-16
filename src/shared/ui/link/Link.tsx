@@ -31,5 +31,3 @@ export const Link: FC<LinkProps> = ({
     </NavLink>
   );
 };
-
-Link.displayName = 'Link';
