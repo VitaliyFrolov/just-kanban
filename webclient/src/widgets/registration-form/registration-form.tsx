@@ -4,8 +4,21 @@ import { AppConfig } from 'next-intl';
 import { FC } from 'react';
 
 import { Button, TextField } from 'shared/ui';
-import { IssueCode, clsx, formResolver, useForm, validate } from 'shared/lib';
-import { PASSWORD_REGEX, USERNAME_REGEX, registration } from 'features/auth';
+import {
+  IssueCode,
+  clsx,
+  formResolver,
+  useForm,
+  useRouter,
+  validate,
+} from 'shared/lib';
+import {
+  PASSWORD_REGEX,
+  USERNAME_REGEX,
+  registration,
+  setAccessToken,
+} from 'features/auth';
+import { RoutePath } from 'shared/config';
 
 interface RegistrationFormProps {
   className?: string;
@@ -19,6 +32,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
   className,
   messages,
 }) => {
+  const router = useRouter();
   const schema = validate
     .object({
       email: validate
@@ -82,10 +96,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
       lastName: fields.lastName,
     });
 
-    console.log(response);
-
     if (response.ok) {
-      console.log(response.data);
+      await setAccessToken(response.data);
+      router.push(RoutePath.Home);
     } else {
       if (response.error.fields?.email) {
         setError('email', { message: response.error.fields.email });

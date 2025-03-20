@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Metadata } from 'next';
 
-import { LoginPage } from 'pages/login';
+import { LoginPage } from 'routes/login';
 import { getMessages } from 'shared/lib';
 
 export const generateMetadata = async (): Promise<Metadata> => {

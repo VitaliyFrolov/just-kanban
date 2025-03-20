@@ -1,3 +1,5 @@
+'use server';
+
 import { NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 
@@ -21,12 +23,10 @@ export const authMiddleware = async (req: NextRequest) => {
 
   const cookie = await cookies();
   const accessToken = cookie.get(ACCESS_TOKEN_COOKIE_NAME)?.value;
-  const userClaims = accessToken ? getUserClaims(accessToken) : null;
-
-  console.log(userClaims);
+  const userClaims = accessToken ? await getUserClaims(accessToken) : null;
 
   if (userClaims) {
-    req.nextUrl.pathname = RoutePath.Home;
+    return req;
   } else {
     req.nextUrl.pathname = RoutePath.Login;
   }

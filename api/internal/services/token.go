@@ -29,7 +29,6 @@ type (
 		Username  string `json:"username"`
 		FirstName string `json:"first_name"`
 		LastName  string `json:"last_name"`
-		sqlddl.ID `json:"id"`
 		jwt.RegisteredClaims
 	}
 	RefreshTokenClaims struct {
@@ -44,7 +43,6 @@ func NewTokenService(refreshTokenRepo interfaces.RefreshTokenRepository, JWTSecr
 func (ts *TokenService) CreateAuthPair(ctx context.Context, user *models.User) (*jwt.AccessTokens, error) {
 	accessTokenId := uuid.New().String()
 	accessToken, accessTokenErr := jwt.CreateSignedToken(&AccessTokenClaims{
-		ID:        user.ID,
 		Email:     user.Email,
 		Username:  user.Username,
 		Avatar:    user.Avatar,

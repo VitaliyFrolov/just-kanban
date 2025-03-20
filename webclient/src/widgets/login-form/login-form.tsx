@@ -4,8 +4,10 @@ import { AppConfig } from 'next-intl';
 import { FC } from 'react';
 
 import { Button, InformationMessage, TextField } from 'shared/ui';
-import { clsx, formResolver, useForm, validate } from 'shared/lib';
+import { clsx, formResolver, useForm, useRouter, validate } from 'shared/lib';
+import { RoutePath } from 'shared/config';
 import { login } from 'features/auth';
+import { setAccessToken } from 'features/auth';
 
 interface LoginFormProps {
   className?: string;
@@ -16,6 +18,7 @@ interface LoginFormProps {
 }
 
 export const LoginForm: FC<LoginFormProps> = ({ className, messages }) => {
+  const router = useRouter();
   const schema = validate.object({
     identifier: validate
       .string()
@@ -39,8 +42,9 @@ export const LoginForm: FC<LoginFormProps> = ({ className, messages }) => {
 
   const onSubmit = handleSubmit(async (fields) => {
     const response = await login(fields.identifier, fields.password);
-    console.log(response);
     if (response.ok) {
+      await setAccessToken(response.data);
+      router.push(RoutePath.Home);
     } else {
       if (response.error.fields?.root) {
         setError('root', { message: response.error.fields.root });
@@ -52,10 +56,7 @@ export const LoginForm: FC<LoginFormProps> = ({ className, messages }) => {
     <div
       className={clsx(
         className,
-        `
-        flex flex-col gap-xl bg-surface p-l rounded-m shadow-surface
-        tablet:max-w-[630px]
-        `,
+        'flex flex-col gap-xl bg-surface p-l rounded-m shadow-surface tablet:max-w-[630px]',
       )}
     >
       <h4 className="text-xl font-bold whitespace-pre-wrap tablet:text-xxl">
