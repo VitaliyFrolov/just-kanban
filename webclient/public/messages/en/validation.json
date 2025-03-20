@@ -1,0 +1,9 @@
+{
+  "validation-email": "Invalid email",
+  "validation-required": "Field is required",
+  "validation-username": "Username requires latin letters, also optional accepts digits and symbols @_-",
+  "validation-username-length": "Username length must be from 4 to 30 symbols",
+  "validation-password-length": "Password length must be from 6 to 70 symbols",
+  "validation-password-symbols": "Password requires latin letters, also optional accepts digits and symbols @_-",
+  "validation-match-passwords": "Passwords must match"
+}

@@ -1,0 +1,11 @@
+CREATE TABLE {{.TableName}} (
+    {{.ColumnID}} TEXT PRIMARY KEY,
+    {{range .Columns -}}
+    {{.Name}} {{.Type}}{{if .Constraints}} {{join .Constraints " "}}{{end}},
+    {{end}}
+    {{- range .ForeignKeys -}}
+    {{.ColumnName}} TEXT REFERENCES {{.ReferenceTable}}({{.ReferenceColumn}}) ON DELETE {{.OnDelete}},
+    {{end -}}
+    {{.ColumnCreatedAt}} TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    {{.ColumnUpdatedAt}} TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

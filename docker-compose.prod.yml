@@ -1,0 +1,53 @@
+services:
+  database:
+    hostname: ${DB_HOST}
+    restart: always
+    image: postgres:16.3-alpine
+    ports:
+      - ${DB_PORT}:5432
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_db:/var/lib/postgresql/data/pgdata
+  server:
+    hostname: ${SERVER_HOST}
+    restart: always
+    image: golang:1.23.5-alpine
+    depends_on:
+      - database
+    env_file: .env
+    working_dir: /app
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ./api:/app
+    command:
+      - sh
+      - -c
+      - |
+        go mod download
+        go run scripts/generate_migrations.go
+        go run cmd/migrations/main.go -direction=up
+        go run cmd/app/main.go
+  webclient:
+    hostname: ${WEBCLIENT_HOST}
+    restart: always
+    image: node:23-alpine3.21
+    working_dir: /app
+    ports:
+      - ${WEBCLIENT_PORT}:3000
+    volumes:
+      - ./webclient:/app
+    command:
+      - sh
+      - -c
+      - |
+        npm i
+        npm run build
+        npm run start
+
+volumes:
+  postgres_db:
